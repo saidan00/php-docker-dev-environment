@@ -24,3 +24,12 @@
 `a2enmod rewrite`
 - then:
 `service apache2 restart`
+
+# CAT file from container
+`docker run --rm <image-name>:<tag> cat <container-file-path> > <local-file-path>`
+
+# Remove dangling images
+`docker rmi -f $(docker images -f "dangling=true" -q)`
+
+# Set edit permission Laravel
+`sudo setfacl -Rm u:saidan00:rwx,d:u:saidan00:rwx <path>`
