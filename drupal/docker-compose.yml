@@ -1,0 +1,27 @@
+version: '3'
+services:
+
+  # The Application
+#  app:
+#    build:
+#      context: ./app/
+#      dockerfile: app.dockerfile
+#    working_dir: /var/www
+#    volumes:
+#      - ./app/:/var/www
+
+  # The Web Server
+  web:
+    build:
+      context: ./web/
+      dockerfile: web.dockerfile
+    working_dir: /var/www/html
+    volumes:
+      - ./app:/var/www/html
+    ports:
+      - 8080:80
+
+networks: 
+  default: 
+    external: 
+      name: db-only_default

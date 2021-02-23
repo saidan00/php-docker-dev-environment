@@ -1,0 +1,14 @@
+version: '3'
+services:
+  # The Web Server for front-end
+  web-fe:
+    build:
+      context: ./cccalendar-fe/
+      dockerfile: web.dockerfile
+    working_dir: /app
+    volumes:
+      - ./cccalendar-fe:/app
+    environment:
+      - CHOKIDAR_USEPOLLING=true 
+    ports:
+      - 8082:8080
