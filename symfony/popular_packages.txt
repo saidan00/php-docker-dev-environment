@@ -1,0 +1,7 @@
+composer require symfony/orm-pack
+
+composer require --dev symfony/maker-bundle
+
+composer require doctrine/annotations
+
+composer require easycorp/easyadmin-bundle
