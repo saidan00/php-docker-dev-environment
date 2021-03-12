@@ -1,0 +1,5 @@
+Run in host
+
+sudo ufw allow from any to any port 9000 proto tcp
+sudo ufw allow in from 172.17.0.0/16 to any port 9000 comment xdebug
+

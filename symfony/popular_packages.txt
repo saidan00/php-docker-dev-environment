@@ -5,3 +5,5 @@ composer require --dev symfony/maker-bundle
 composer require doctrine/annotations
 
 composer require easycorp/easyadmin-bundle
+
+composer require symfony/twig-bundle

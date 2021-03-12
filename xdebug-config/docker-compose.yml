@@ -1,0 +1,53 @@
+version: '3'
+services:
+  # The Web Server for back-end
+  web-be:
+    build:
+      context: ./web-be/
+      dockerfile: web.dockerfile
+    working_dir: /var/www/html
+    environment: 
+      PHP_EXTENSION_XDEBUG: 1
+    volumes:
+      - ./cccalendar-be:/var/www/html
+    ports:
+      - 8080:80
+
+  # The Web Server for front-end
+  web-fe:
+    build:
+      context: ./web-fe/
+      dockerfile: web.dockerfile
+    working_dir: /app
+    volumes:
+      - ./cccalendar-fe:/app
+    environment:
+      - CHOKIDAR_USEPOLLING=true 
+    ports:
+      - 8082:8080
+
+  # The Database
+  database:
+    image: mariadb:10.4
+    restart: always
+    volumes:
+      - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./db/data:/var/lib/mysql
+    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci','--default-authentication-plugin=mysql_native_password']
+    environment:
+      MYSQL_DATABASE: cccalendar
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: secret
+    ports:
+        - "3306:3306"
+
+  # phpmyadmin
+  phpmyadmin:
+    image: phpmyadmin:5
+    restart: always
+    ports:
+      - 8081:80
+    environment:
+      - PMA_ARBITRARY=1
+    links:
+      - database
