@@ -33,3 +33,6 @@
 
 # Set edit permission Laravel
 `sudo setfacl -Rm u:saidan00:rwx,d:u:saidan00:rwx <path>`
+
+# Moodle data
+`sudo chown -R daemon:daemon moodledata_data`
