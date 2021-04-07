@@ -1,0 +1,17 @@
+ 
+version: '3'
+
+services:
+    mongo-express:
+        image: mongo-express
+        environment:
+            - ME_CONFIG_MONGODB_SERVER=34.87.72.201
+            - ME_CONFIG_MONGODB_PORT=27017
+            - ME_CONFIG_MONGODB_ENABLE_ADMIN=false
+            - ME_CONFIG_MONGODB_AUTH_DATABASE=kapi_milk
+            - ME_CONFIG_MONGODB_AUTH_USERNAME=kapimAdmin
+            - ME_CONFIG_MONGODB_AUTH_PASSWORD=hG4fsekli9vGxo0XVa
+            - ME_CONFIG_BASICAUTH_USERNAME=kapimAdmin
+            - ME_CONFIG_BASICAUTH_PASSWORD=hG4fsekli9vGxo0XVa
+        ports:
+          - "8081:8081"
