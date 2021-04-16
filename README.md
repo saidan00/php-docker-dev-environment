@@ -84,3 +84,14 @@ sudo setfacl -Rm u:saidan00:rwx,d:u:saidan00:rwx <path>
 ```
 sudo chown -R daemon:daemon moodledata_data
 ```
+
+## **Drupal MIME type text/html**
+```
+drush -y config-set system.performance css.preprocess 0
+drush -y config-set system.performance js.preprocess 0
+```
+
+## **Dump database from server**
+```
+mysqldump -h 192.168.1.1 --port 3306 -u user -p123456 database_name > 2021Apr16.sql
+```
