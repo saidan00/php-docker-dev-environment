@@ -1,0 +1,40 @@
+version: '3'
+services:
+  drupal9Db:
+    image: mariadb:10.4
+    container_name: MULLENLOWE_DRUPAL9_MARIADB
+    command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+    ports:
+      - 3306:3306
+    env_file: ./mariadb/.env
+    volumes:
+      - ./mariadb/db-data:/var/lib/mysql
+      - ./mariadb/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./mariadb/drupal_BK2021Apr15.sql:/docker-entrypoint-initdb.d/drupal_BK2021Apr15.sql
+
+  drupal:
+    build:
+      context: ./dockerfiles/
+      dockerfile: drupal.dockerfile
+    image: drupal9-with-composer
+    container_name: MULLENLOWE_DRUPAL9_DRUPAL
+    depends_on:
+      - drupal9Db
+    restart: unless-stopped
+    volumes:
+      - ../src:/var/www/html
+      - ./dockerfiles/docker-php-ext-opcache.ini:/usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
+
+  nginx:
+    image: nginx:alpine
+    container_name: MULLENLOWE_DRUPAL9_NGINX
+    depends_on:
+      - drupal
+    restart: unless-stopped
+    ports:
+      - 80:80
+    volumes:
+      - ../src:/var/www/html
+      - ./nginx/nginx-conf:/etc/nginx/conf.d
+
